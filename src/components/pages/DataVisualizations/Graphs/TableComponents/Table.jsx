@@ -1,12 +1,17 @@
+// Importing React, TableRow, and colors from styles
 import React from 'react';
 import TableRow from './TableRow';
 import { colors } from '../../../../../styles/data_vis_colors';
 
+// Extracting primary_accent_color from colors
 const { primary_accent_color } = colors;
 
+// Defining a functional component named Table that takes props
 function Table(props) {
+  // Destructuring props to get rows, columns, tableWidth, and rowHeight
   const { rows, columns, tableWidth, rowHeight } = props;
-
+  
+  // Returning JSX for rendering the component
   return (
     <div
       className="g-table"
@@ -18,6 +23,7 @@ function Table(props) {
         overflow: 'hidden',
       }}
     >
+      {/* Rendering column IDs */}
       <div
         className="column-id-container"
         style={{
@@ -47,6 +53,8 @@ function Table(props) {
           );
         })}
       </div>
+      
+      {/* Rendering rows */}
       <div className="rows-container">
         {rows.map((row, idx) => {
           return (
@@ -65,4 +73,5 @@ function Table(props) {
   );
 }
 
+// Exporting the Table component
 export default Table;
