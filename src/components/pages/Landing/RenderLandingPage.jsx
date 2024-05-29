@@ -4,13 +4,16 @@ import React from 'react';
 // import GrantRatesByNationalityImg from '../../../styles/Images/pie-chart-no-text.png';
 // import GrantRatesOverTimeImg from '../../../styles/Images/line-graph-no-text.png';
 import HrfPhoto from '../../../styles/Images/paper-stack.jpg';
-import '../../../styles/RenderLandingPage.less';
-import { Button } from 'antd';
-import { useHistory } from 'react-router-dom';
+import '../../../styles/RenderLandingPage.less';//CSS
+import { Button } from 'antd'; //Ant Button Component
+import { useHistory } from 'react-router-dom'; //Nav Hook
 // for the purposes of testing PageNav
 // import PageNav from '../../common/PageNav';
 
+
+//RENDER LANDING PAGE FUNCTION
 function RenderLandingPage(props) {
+  // Function to scroll to top of page
   const scrollToTop = () => {
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
@@ -33,11 +36,12 @@ function RenderLandingPage(props) {
 
       {/* Graphs Section: Add code here for the graphs section for your first ticket */}
       {/* <div className="graphs-section"> */}
+      {/*Button below navigate to the graphs section*/}
       <div className="view-more-data-btn-container">
         <Button
           type="default"
           style={{ backgroundColor: '#404C4A', color: '#FFFFFF' }}
-          onClick={() => history.push('/graphs')}
+          onClick={() => history.push('/graphs')} //Nav to Graphs CLicked
         >
           View the Data
         </Button>
