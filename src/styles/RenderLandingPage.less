@@ -15,10 +15,8 @@
     width: 100%;
     height: 20vh;
     margin-bottom: 10%;
-    padding-top: 5px;
 }
 
-//GIANT PHOTO 
 .hrf-photo {
     display: flex;
     flex-direction: row;
@@ -33,15 +31,6 @@
     align-items: center;
 }
 
-//Trying to make this on top of disparity :(
-
-.section-title-div {
-    display: flex;
-    flex-direction: column; /* Stack items vertically */
-    align-items: center; /* Center-align items horizontally */
-    width: 80%; /* Adjust as needed */
-    margin: 0 auto; /* Center the container */
-}
 
 .hrf-logo-img-container img {
     height: 64px;
@@ -58,68 +47,53 @@
 .header-text-container h1 {
     font-size: 3rem;
     color: @white;
-    font-family: 'moneta';
+    font-family: 'MonetaBold';
 }
 
 .header-text-container h3 {
-    font-family: 'beatrice regular';
+    font-family: 'BeatriceRegular';
     color: @white;
     font-size: 1.2rem;
 }
 
-//graphs //
-
 .graphs-section {
     display: flex;
+    flex-direction: row;
+    margin: 0 auto 2rem auto;
     justify-content: space-evenly;
 }
 
-.grant-rates-by-office-graph-container, .grant-rates-over-time-container  {
+.graph-box {
     text-align: center;
+}
+
+.graphs-section img {
+    margin: 0 auto 1rem auto;
     height: 165px;
-    font-size: 1.5rem;
-    font-family: 'acumin';
 }
 
-.gr-office-img, .gr-overtime-img {
-    height: 165px;
-    width: 320px;
-    margin-bottom: 10%;
-    cursor: pointer;
-}
-
-.grant-rates-by-nationality-container {
-    text-align: center;
-    margin-bottom: 3%;
-    margin-left: -15px;
-    font-size: 1.5rem;
-    font-family: 'acumin';
-}
-
-.gr-nationality-img {
-    margin-bottom: 7%;
-    margin-left: -15px;
-    height: 175px;
-    width: 200px;
-    cursor: pointer;
+.graphs-section p {
+    font-family: 'beatrice regular';
+    font-size: 1.2rem;
 }
 
 .view-more-data-btn-container {
     height: 44px;
-    width: 300px;
-    margin: 0 auto 10%;
+    width: 180px;
+    margin: 0 auto;
     text-align: center;
+    margin-bottom: 10%;
     display: flex;
-    justify-content: space-between;
+}
+
+.view-more-data-btn-container .data-button {
+    margin: 0 .3rem;
 }
 
 .middle-section {
     display: flex;
-    flex-direction: row; /* Aligns children vertically */
-    align-items: center; /* Centers children horizontally */
-    justify-content: center; /* Centers children vertically */
-    height: 70%; /* Adjust as needed */
-    width: 70%; /* Adjust as needed */
+    justify-content: space-evenly;
+    align-items: center;
 }
 
 .hrf-img {
@@ -134,63 +108,43 @@
 }
 
 .middle-section-text-container h3 {
-    font-family: 'acumin';
+    font-family: 'AcuminProRegular';
     font-size: 1.4rem;
 }
 
-
-
 .bottom-section {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     text-align: center;
-    margin-top: 10%;
 }
+
 .bottom-section h1 {
-    margin-bottom: 10%;
-    font-size: 3.5rem;
+    font-size: 3rem;
     font-family: 'moneta';
-}
-// .section-title-div {
-//     display: flex;
-//     flex-direction: column; /* Stack items vertically */
-//     align-items: center; /* Center-align items horizontally */
-//     width: 80%; /* Adjust as needed */
-//     margin: 0 auto; /* Center the container */
-// }
-
-.disparity-container {
-    display: flex;
-    justify-content: space-between;
-    width: 80%; /* Adjust as needed */
-    margin: 0 auto; /* Center the container */
-}
-
-
-.insight-item {
+    margin-bottom: 5rem;
+    margin-top: 3rem;
     text-align: center;
 }
-.insight-value {
-    font-size: 3rem; /* Example size */
+
+.bottom-data {
+     display: flex;
+     flex-direction: row;
+     justify-content: space-evenly;
+
 }
 
-.insight-description {
-    font-size: 1.2rem; /* Example size */
+.bottom-data-box {
+    display: flex;
+    flex-direction: column;
+    width: 25%;
 }
 
-.first-data-point-container, .second-data-point-container, .third-data-point-container {
-    width: 433px;
-}
-
-.first-data-point-container h2, .second-data-point-container h2, .third-data-point-container h2 {
-    font-family: "beatrice_regular";
-    font-size: 3rem;
-}
-
-.first-data-point-container h3, .second-data-point-container h3, .third-data-point-container h3 {
+.bottom-section h2 {
     font-family: 'acumin';
-    font-size: 1.2rem;
+    font-size: 2.8rem;
+}
+
+.bottom-section h3 {
+    font-family: 'acumin';
+    font-size: 1.4rem;
 }
 
 .back-to-top {
@@ -210,7 +164,6 @@
 
 .ant-btn:hover {
     border-color: @secondary-color  !important;
-    cursor: pointer;
 }
 
 @media @mobile-small {
@@ -285,6 +238,7 @@
         width: 85%;
         text-align: center;
         margin: 0 auto;
+       
     }
 
     .middle-section-text-container h3 {
