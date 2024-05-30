@@ -71,7 +71,9 @@ function RenderLandingPage(props) {
 
       <div className="bottom-section">
         {/* Section highlighting insights into systemic disparities */}
+        <div className = 'section-title-div'>
         <h1 className="section-title">Systemic Disparity Insights</h1>
+        </div>
         <div className="disparity-container">
           {/* Individual insights into disparity */}
           <div className="insight-item">

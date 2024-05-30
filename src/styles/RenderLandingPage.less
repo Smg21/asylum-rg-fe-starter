@@ -15,6 +15,7 @@
     width: 100%;
     height: 20vh;
     margin-bottom: 10%;
+    padding-top: 5px;
 }
 
 .hrf-logo-img-container img {
@@ -41,20 +42,50 @@
     font-size: 1.2rem;
 }
 
+//graphs //
+
 .graphs-section {
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    flex-wrap: wrap;
-//  ADD THIS BACK IN WHEN YOU HAVE THE GRAPHS SECTION
+    justify-content: space-evenly;
+}
+
+.grant-rates-by-office-graph-container, .grant-rates-over-time-container  {
+    text-align: center;
+    height: 165px;
+    font-size: 1.5rem;
+    font-family: 'acumin';
+}
+
+.gr-office-img, .gr-overtime-img {
+    height: 165px;
+    width: 320px;
+    margin-bottom: 10%;
+    cursor: pointer;
+}
+
+.grant-rates-by-nationality-container {
+    text-align: center;
+    margin-bottom: 3%;
+    margin-left: -15px;
+    font-size: 1.5rem;
+    font-family: 'acumin';
+}
+
+.gr-nationality-img {
+    margin-bottom: 7%;
+    margin-left: -15px;
+    height: 175px;
+    width: 200px;
+    cursor: pointer;
 }
 
 .view-more-data-btn-container {
     height: 44px;
-    width: 180px;
-    margin: 0 auto;
+    width: 300px;
+    margin: 0 auto 10%;
     text-align: center;
-    margin-bottom: 10%;
+    display: flex;
+    justify-content: space-between;
 }
 
 .middle-section {
@@ -79,9 +110,60 @@
     font-size: 1.4rem;
 }
 
-// .bottom-section {
-//      ADD THIS BACK IN WHEN YOU HAVE A BOTTOM SECTION
-// }
+
+
+.bottom-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    margin-top: 10%;
+}
+.bottom-section h1 {
+    margin-bottom: 10%;
+    font-size: 3.5rem;
+    font-family: 'moneta';
+}
+.section-title-div {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center-align items horizontally */
+    width: 80%; /* Adjust as needed */
+    margin: 0 auto; /* Center the container */
+}
+
+.disparity-container {
+    display: flex;
+    justify-content: space-between;
+    width: 80%; /* Adjust as needed */
+    margin: 0 auto; /* Center the container */
+}
+
+
+.insight-item {
+    text-align: center;
+}
+.insight-value {
+    font-size: 3rem; /* Example size */
+}
+
+.insight-description {
+    font-size: 1.2rem; /* Example size */
+}
+
+.first-data-point-container, .second-data-point-container, .third-data-point-container {
+    width: 433px;
+}
+
+.first-data-point-container h2, .second-data-point-container h2, .third-data-point-container h2 {
+    font-family: "beatrice_regular";
+    font-size: 3rem;
+}
+
+.first-data-point-container h3, .second-data-point-container h3, .third-data-point-container h3 {
+    font-family: 'acumin';
+    font-size: 1.2rem;
+}
 
 .back-to-top {
     width: 8%;
@@ -100,6 +182,7 @@
 
 .ant-btn:hover {
     border-color: @secondary-color  !important;
+    cursor: pointer;
 }
 
 @media @mobile-small {
