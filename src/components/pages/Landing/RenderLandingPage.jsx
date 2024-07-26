@@ -1,25 +1,24 @@
-import React from 'react';
-import GrantRatesByOfficeImg from '../../../styles/Images/bar-graph-no-text.png';
-import GrantRatesByNationalityImg from '../../../styles/Images/pie-chart-no-text.png';
-import GrantRatesOverTimeImg from '../../../styles/Images/line-graph-no-text.png';
-import HrfPhoto from '../../../styles/Images/paper-stack.jpg';
-import '../../../styles/RenderLandingPage.less'; // Importing the styles for this component
+import React from 'react'; // Importing the React library
+import GrantRatesByOfficeImg from '../../../styles/Images/bar-graph-no-text.png'; // Importing image for Grant Rates by Office
+import GrantRatesByNationalityImg from '../../../styles/Images/pie-chart-no-text.png'; // Importing image for Grant Rates by Nationality
+import GrantRatesOverTimeImg from '../../../styles/Images/line-graph-no-text.png'; // Importing image for Grant Rates Over Time
+import HrfPhoto from '../../../styles/Images/paper-stack.jpg'; // Importing an image for the middle section
+import '../../../styles/RenderLandingPage.less'; // Importing styles for this component
 import { Button } from 'antd'; // Importing Button component from Ant Design library
 import { useHistory } from 'react-router-dom'; // Importing useHistory hook for navigation
 import { downloadCsvData } from '../../../utils'; // Importing the function to download CSV data
 
-
-
+// Main component for rendering landing page
 function RenderLandingPage(props) {
-  // This function smoothly scrolls the page back to the top
+  // Function to scroll page back to the top smoothly
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // useHistory hook gives us access to the history instance for navigation
+  // useHistory hook gives us access to history instance for navigation
   const history = useHistory();
 
-  // This function handles the data download action
+  // Function to handle data download action
   const handleDownloadData = async () => {
     await downloadCsvData();
   };
@@ -29,10 +28,10 @@ function RenderLandingPage(props) {
       {/* Header Section */}
       <div className="header">
         <div className="hrf-logo-img-container">
-          {/* Logo image for Human Rights First */}
+          {/* Placeholder for Human Rights First logo image */}
         </div>
         <div className="header-text-container">
-          {/* Title and subtitle for the landing page */}
+          {/* Title and subtitle for landing page */}
           <h1 className="title">Asylum Office Grant Rate Tracker</h1>
           <h3 className="subtitle">
             An interactive tool for exploring USCIS data on Asylum Office decisions.
@@ -48,12 +47,12 @@ function RenderLandingPage(props) {
           <p>Grant Rates By Office</p>
         </div>
         <div className="graph-box">
-          {/* Image for Grant Rates By Nationality - clicking navigates to nationality graph */}
+          {/* Image for Grant Rates By Nationality*/}
           <img src={GrantRatesByNationalityImg} alt="Grant Rates By Nationality" onClick={() => history.push('/graphs/all/citizenship')} />
           <p>Grant Rates By Nationality</p>
         </div>
         <div className="graph-box">
-          {/* Image for Grant Rates Over Time - clicking navigates to time-series graph */}
+          {/* Image for Grant Rates Over Time*/}
           <img src={GrantRatesOverTimeImg} alt="Grant Rates Over Time" onClick={() => history.push('/graphs/all/time-series')} />
           <p>Grant Rates Over Time</p>
         </div>
@@ -61,13 +60,16 @@ function RenderLandingPage(props) {
 
       {/* Buttons for Viewing and Downloading Data */}
       <div className="view-more-data-btn-container">
+        {/* Button to view more data*/}
         <Button type="primary" className="data-button" onClick={() => history.push('/graphs')}>View the Data</Button>
+        {/* Button to download the data */}
         <Button type="primary" className="data-button" onClick={handleDownloadData}>Download the Data</Button>
       </div>
 
       {/* Middle Section with an image and some explanatory text */}
       <div className="middle-section">
         <div className="image-container">
+          {/* Image related to Human Rights First */}
           <img src={HrfPhoto} alt="Human Rights First" className="hrf-img" />
         </div>
         <div className="middle-section-text-container">
@@ -85,14 +87,17 @@ function RenderLandingPage(props) {
         </div>
         <div className="disparity-container">
           <div className="bottom-data-box">
+            {/* Statistic showing decrease in average grant rate */}
             <h2>36%</h2>
             <h3>Decrease in average grant rate from 44% in FY 2016 to 28% in FY 2020.</h3>
           </div>
           <div className="bottom-data-box">
+            {/* Statistic for New York asylum office grant rate */}
             <h2>5%</h2>
             <h3>New York asylum office grant rate in FY 2020.</h3>
           </div>
           <div className="bottom-data-box">
+            {/* Statistic showing disparity in grant rates */}
             <h2>6x Lower</h2>
             <h3>Average grant rate of the New York asylum office compared to the...</h3>
           </div>
@@ -104,4 +109,4 @@ function RenderLandingPage(props) {
   );
 }
 
-export default RenderLandingPage;
+export default RenderLandingPage; // Exporting the component so it can be used in other parts of the app

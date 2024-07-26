@@ -1,109 +1,125 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import CitizenshipMapAll from './Graphs/CitizenshipMapAll'; // Importing components for different graphs
-import CitizenshipMapSingleOffice from './Graphs/CitizenshipMapSingleOffice';
-import TimeSeriesAll from './Graphs/TimeSeriesAll';
-import OfficeHeatMap from './Graphs/OfficeHeatMap';
-import TimeSeriesSingleOffice from './Graphs/TimeSeriesSingleOffice';
-import YearLimitsSelect from './YearLimitsSelect'; // Importing select components
-import ViewSelect from './ViewSelect';
-import axios from 'axios'; // Importing Axios for API requests
-import { resetVisualizationQuery, setData } from '../../../state/actionCreators'; // Importing Redux action creators
-import { colors } from '../../../styles/data_vis_colors'; // Importing color definitions
-import ScrollToTopOnMount from '../../../utils/scrollToTopOnMount'; // Utility function for scrolling
+import React from 'react'; // Importing the React library
+import { connect } from 'react-redux'; // Importing the connect function from React-Redux to connect the component to the Redux store
+import { useParams } from 'react-router-dom'; // Importing useParams hook to get parameters from the URL
+import CitizenshipMapAll from './Graphs/CitizenshipMapAll'; // Importing the CitizenshipMapAll component
+import CitizenshipMapSingleOffice from './Graphs/CitizenshipMapSingleOffice'; // Importing the CitizenshipMapSingleOffice component
+import TimeSeriesAll from './Graphs/TimeSeriesAll'; // Importing the TimeSeriesAll component
+import OfficeHeatMap from './Graphs/OfficeHeatMap'; // Importing the OfficeHeatMap component
+import TimeSeriesSingleOffice from './Graphs/TimeSeriesSingleOffice'; // Importing the TimeSeriesSingleOffice component
+import YearLimitsSelect from './YearLimitsSelect'; // Importing the YearLimitsSelect component
+import ViewSelect from './ViewSelect'; // Importing the ViewSelect component
+import axios from 'axios'; // Importing axios for making HTTP requests
+import { resetVisualizationQuery } from '../../../state/actionCreators'; // Importing the resetVisualizationQuery action creator
+import { colors } from '../../../styles/data_vis_colors'; // Importing color styles
+import ScrollToTopOnMount from '../../../utils/scrollToTopOnMount'; // Importing ScrollToTopOnMount utility
 
-const { background_color } = colors; // Destructuring background color from colors object
+const { background_color } = colors; // Destructuring background_color from colors
 
+// Main component for wrapping the graphs
 function GraphWrapper(props) {
-  const { set_view, dispatch } = props; // Destructuring props to get set_view function and dispatch
+  const { set_view, dispatch } = props; // Destructuring props to get set_view and dispatch functions
+  let { office, view } = useParams(); // Getting office and view parameters from the URL
 
-  let { office, view } = useParams(); // Getting 'office' and 'view' parameters from URL
+  // If view is not set, default to 'time-series'
+  if (!view) {
+    set_view('time-series');
+    view = 'time-series';
+  }
 
-  useEffect(() => {
-    if (!view) {
-      set_view('time-series'); // Setting default view to 'time-series' if not specified in URL
-      view = 'time-series'; // Updating view variable to 'time-series'
-    }
-  }, [set_view, view]); // useEffect dependency array ensures it runs when set_view or view changes
-
-  let map_to_render; // Declaring variable to hold the component to render based on 'office' and 'view'
-
-  
-  // Graph Rendering Logic (loom):
-  if (!office) { // If 'office' is not specified
+  // Determine which map to render based on the office and view parameters
+  let map_to_render;
+  if (!office) {
     switch (view) {
       case 'time-series':
-        map_to_render = <TimeSeriesAll />; // Render TimeSeriesAll component
+        map_to_render = <TimeSeriesAll />;
         break;
       case 'office-heat-map':
-        map_to_render = <OfficeHeatMap />; // Render OfficeHeatMap component
+        map_to_render = <OfficeHeatMap />;
         break;
       case 'citizenship':
-        map_to_render = <CitizenshipMapAll />; // Render CitizenshipMapAll component
+        map_to_render = <CitizenshipMapAll />;
         break;
       default:
         break;
     }
-  } else { // If 'office' is specified
+  } else {
     switch (view) {
       case 'time-series':
-        map_to_render = <TimeSeriesSingleOffice office={office} />; // Render TimeSeriesSingleOffice with 'office' prop
+        map_to_render = <TimeSeriesSingleOffice office={office} />;
         break;
       case 'citizenship':
-        map_to_render = <CitizenshipMapSingleOffice office={office} />; // Render CitizenshipMapSingleOffice with 'office' prop
+        map_to_render = <CitizenshipMapSingleOffice office={office} />;
         break;
       default:
         break;
     }
   }
 
-  
-  //  Function to fetch new data from API based on selected years, view, and office (loom):
-  async function updateStateWithNewData(years, view, office, stateSettingCallback) {
-    try {
-      let endpoint;
-
-      
-      // API Integration and Axios Usage (loom):
-      if (office === 'all' || !office) {
-        endpoint = 'fiscalSummary'; // Endpoint for fetching fiscal summary data
-      } else {
-        endpoint = `fiscalSummary?office=${office}`; // Endpoint for fetching fiscal summary data for a specific office
-      }
-
-      // Fetching data from API endpoints using Axios
-      const [fiscalResponse, citizenshipResponse] = await Promise.all([
-        axios.get(`https://hrf-asylum-be-b.herokuapp.com/cases/${endpoint}`, {
+  // Function to update the state with new data based on selected years, view, and office
+  async function updateStateWithNewData(
+    years,
+    view,
+    office,
+    stateSettingCallback
+  ) {
+    // If no specific office is selected
+    if (office === 'all' || !office) {
+      const fiscalSummary = await axios.get(
+        `https://hrf-asylum-be-b.herokuapp.com/cases/fiscalSummary`,
+        {
           params: {
-            from: years[0], // Start year parameter
-            to: years[1], // End year parameter
+            from: years[0],
+            to: years[1],
           },
-        }),
-        axios.get('https://hrf-asylum-be-b.herokuapp.com/cases/citizenshipSummary'), // Fetching citizenship summary data
-      ]);
+        }
+      );
 
-      // Constructing data object with fetched results
-      let data = {
-        fiscalResults: fiscalResponse.data, // Fiscal year data
-        citizenshipResults: citizenshipResponse.data, // Citizenship data
-      };
+      const citizenshipSummary = await axios.get(
+        `https://hrf-asylum-be-b.herokuapp.com/cases/citizenshipSummary`,
+        {
+          params: {
+            from: years[0],
+            to: years[1],
+          },
+        }
+      );
+      fiscalSummary.data.citizenshipResults = citizenshipSummary.data;
+      console.log(fiscalSummary.data);
+      stateSettingCallback(view, office, [fiscalSummary.data]);
+    } else {
+      // If a specific office is selected
+      const fiscalSummary = await axios.get(
+        `https://hrf-asylum-be-b.herokuapp.com/cases/fiscalSummary`,
+        {
+          params: {
+            from: years[0],
+            to: years[1],
+            office: office,
+          },
+        }
+      );
 
-      dispatch(setData(data)); // Dispatching Redux action to set fetched data into application state
-      stateSettingCallback(view, office, data); // Callback function to update state with new view, office, and data
-    } catch (error) {
-     
-      // Error Handling and Debugging (loom):
-      console.error('Error fetching data:', error); // Logging error message if data fetching fails
+      const citizenshipSummary = await axios.get(
+        `https://hrf-asylum-be-b.herokuapp.com/cases/citizenshipSummary`,
+        {
+          params: {
+            from: years[0],
+            to: years[1],
+            office: office,
+          },
+        }
+      );
+      fiscalSummary.data.citizenshipResults = citizenshipSummary.data;
+      console.log(fiscalSummary.Data);
+      stateSettingCallback(view, office, [fiscalSummary.data]); 
     }
   }
 
-  // Function to clear query parameters
+  // Function to clear the query
   const clearQuery = (view, office) => {
-    dispatch(resetVisualizationQuery(view, office)); // Dispatching Redux action to reset visualization query
+    dispatch(resetVisualizationQuery(view, office));
   };
 
-  // JSX rendering
   return (
     <div
       className="map-wrapper-container"
@@ -112,11 +128,11 @@ function GraphWrapper(props) {
         alignItems: 'flex-start',
         justifyContent: 'center',
         minHeight: '50px',
-        backgroundColor: background_color, // Applying background color style
+        backgroundColor: background_color,
       }}
     >
-      <ScrollToTopOnMount /> {/* Component to scroll to top on mount */}
-      {map_to_render} {/* Rendering the selected map component */}
+      <ScrollToTopOnMount />
+      {map_to_render}
       <div
         className="user-input-sidebar-container"
         style={{
@@ -127,16 +143,17 @@ function GraphWrapper(props) {
           justifyContent: 'center',
         }}
       >
-        <ViewSelect set_view={set_view} /> {/* Rendering view selection component */}
+        <ViewSelect set_view={set_view} />
         <YearLimitsSelect
           view={view}
           office={office}
           clearQuery={clearQuery}
-          updateStateWithNewData={updateStateWithNewData} // Passing props to YearLimitsSelect component
+          updateStateWithNewData={updateStateWithNewData}
         />
       </div>
     </div>
   );
 }
 
-export default connect()(GraphWrapper); // Connecting GraphWrapper component to Redux store
+export default connect()(GraphWrapper); // Connecting the component to the Redux store and exporting it
+
