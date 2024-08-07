@@ -18,11 +18,6 @@ function RenderLandingPage(props) {
   // useHistory hook gives us access to history instance for navigation
   const history = useHistory();
 
-  // Function to handle data download action
-  const handleDownloadData = async () => {
-    await downloadCsvData();
-  };
-
   return (
     <div className="main">
       {/* Header Section */}
@@ -41,30 +36,41 @@ function RenderLandingPage(props) {
 
       {/* Graphs Section */}
       <div className="graphs-section">
-        <div className="graph-box">
-          {/* Image for Grant Rates By Office - clicking navigates to the graphs page */}
-          <img src={GrantRatesByOfficeImg} alt="Grant Rates By Office" onClick={() => history.push('/graphs')} />
-          <p>Grant Rates By Office</p>
+        <div className="grant-rates-by-office-graph-container">
+          <img
+            src={GrantRatesByOfficeImg}
+            alt="Grant Rates By Office Graph"
+            className="gr-office-img"
+          />
+          <p>Search Grant Rates By Office</p>
         </div>
-        <div className="graph-box">
-          {/* Image for Grant Rates By Nationality*/}
-          <img src={GrantRatesByNationalityImg} alt="Grant Rates By Nationality" onClick={() => history.push('/graphs/all/citizenship')} />
-          <p>Grant Rates By Nationality</p>
+        <div className="grant-rates-by-nationality-container">
+          <img
+            src={GrantRatesByNationalityImg}
+            alt="Grant Rates By Nationality Graph"
+            className="gr-nationality-img"
+          />
+          <p>Search Grant Rates By Nationality</p>
         </div>
-        <div className="graph-box">
-          {/* Image for Grant Rates Over Time*/}
-          <img src={GrantRatesOverTimeImg} alt="Grant Rates Over Time" onClick={() => history.push('/graphs/all/time-series')} />
-          <p>Grant Rates Over Time</p>
+        <div className="grant-rates-over-time-container">
+          <img
+            src={GrantRatesOverTimeImg}
+            alt="Grant Rates Over Time Graph"
+            className="gr-overtime-img"
+          />
+          <p>Search Grant Rates Over Time</p>
         </div>
+      </div>
+      <div className="view-more-data-btn-container">
+        <Button
+          type="default"
+          style={{ backgroundColor: '#404C4A', color: '#FFFFFF' }}
+          onClick={() => history.push('/graphs')}
+        >
+          View the Data
+        </Button>
       </div>
 
-      {/* Buttons for Viewing and Downloading Data */}
-      <div className="view-more-data-btn-container">
-        {/* Button to view more data*/}
-        <Button type="primary" className="data-button" onClick={() => history.push('/graphs')}>View the Data</Button>
-        {/* Button to download the data */}
-        <Button type="primary" className="data-button" onClick={handleDownloadData}>Download the Data</Button>
-      </div>
 
       {/* Middle Section with an image and some explanatory text */}
       <div className="middle-section">
@@ -110,3 +116,8 @@ function RenderLandingPage(props) {
 }
 
 export default RenderLandingPage; // Exporting the component so it can be used in other parts of the app
+
+
+
+
+
